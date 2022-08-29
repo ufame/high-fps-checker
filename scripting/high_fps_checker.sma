@@ -74,7 +74,7 @@ public Task_StartTask() {
 
 public Task_CheckUsersFps() {
   new iPlayers[MAX_PLAYERS], iNum;
-  get_players_ex(iPlayers, iNum, GetPlayers_ExcludeDead);
+  get_players_ex(iPlayers, iNum, GetPlayers_ExcludeBots | GetPlayers_ExcludeHLTV);
 
   for (new i, id, Float: flSpeed, Float: flVelocity[3]; i < iNum; i++) {
     id = iPlayers[i];
