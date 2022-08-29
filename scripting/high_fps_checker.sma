@@ -80,7 +80,7 @@ public Task_CheckUsersFps() {
     id = iPlayers[i];
 
     if (g_iFps[id] > g_iMaxFps) {
-      if (g_iMaxWarnings && ++g_iWarnings[id] >= g_iMaxWarnings) {
+      if (g_iMaxWarnings || ++g_iWarnings[id] >= g_iMaxWarnings) {
         user_kick(id);
         continue;
       }
