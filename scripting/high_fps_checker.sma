@@ -5,7 +5,7 @@
 #pragma semicolon 1
 
 public stock const PluginName[] = "FPS Checker";
-public stock const PluginVersion[] = "1.0.0";
+public stock const PluginVersion[] = "1.0.2";
 public stock const PluginAuthor[] = "ufame";
 
 const TASKID_START_TASK = 12121;
