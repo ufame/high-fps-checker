@@ -7,6 +7,8 @@
 public stock const PluginName[] = "FPS Checker";
 public stock const PluginVersion[] = "1.0.2";
 public stock const PluginAuthor[] = "ufame";
+public stock const PluginDescription[] = "Punishments for high FPS";
+public stock const PluginURL[] = "https://dev-cs.ru/resources/1436/";
 
 const TASKID_START_TASK = 12121;
 const TASKID_CHECK_FPS = 21212;
@@ -32,26 +34,13 @@ public plugin_init() {
   bind_pcvar_num(create_cvar("hfc_reset_speed", "1", .description = "Reset player speed on warnings?"), g_bResetSpeed);
 
   AutoExecConfig(true, "high-ping-checker");
+
+  set_task(TASK_INTERVAL, "Task_CheckUsersFps", .flags = "b");
 }
 
 public client_connect(id) {
-  g_flLastCheck[id] = 0.0;
-}
-
-public client_putinserver(id) {
   g_iWarnings[id] = 0;
-
-  if (task_exists(TASKID_CHECK_FPS) || task_exists(TASKID_START_TASK))
-    return;
-
-  set_task(3.0, "Task_StartTask", TASKID_START_TASK);
-}
-
-public client_disconnected(id) {
-  if (!get_playersnum_ex(GetPlayers_ExcludeBots | GetPlayers_ExcludeHLTV)) { //kogo chekat' to?
-    remove_task(TASKID_CHECK_FPS);
-    remove_task(id + TASKID_START_TASK);
-  }
+  g_flLastCheck[id] = 0.0;
 }
 
 public Hook_PlayerPrethink_Pre(id) {
@@ -63,13 +52,6 @@ public Hook_PlayerPrethink_Pre(id) {
   }
 
   g_iFrames[id]++;
-}
-
-public Task_StartTask() {
-  if (!get_playersnum_ex(GetPlayers_ExcludeBots | GetPlayers_ExcludeHLTV))
-    return;
-
-  set_task(TASK_INTERVAL, "Task_CheckUsersFps", TASKID_CHECK_FPS, .flags = "b");
 }
 
 public Task_CheckUsersFps() {
