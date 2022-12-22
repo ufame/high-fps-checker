@@ -33,7 +33,7 @@ public plugin_init() {
   bind_pcvar_num(create_cvar("hfc_max_warns", "3", .description = "Max warnings before kick"), g_iMaxWarnings);
   bind_pcvar_num(create_cvar("hfc_reset_speed", "1", .description = "Reset player speed on warnings?"), g_bResetSpeed);
 
-  AutoExecConfig(true, "high-ping-checker");
+  AutoExecConfig(true, "high-fps-checker");
 
   set_task(TASK_INTERVAL, "Task_CheckUsersFps", .flags = "b");
 }
